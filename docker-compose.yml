@@ -1,0 +1,105 @@
+services:
+  weather_postgres:
+    image: postgres:15-alpine
+    container_name: weather_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: weather_db
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5434:5432"  # Используем свободный порт 5434
+    volumes:
+      - weather_postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d weather_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - airflow_network
+    restart: unless-stopped
+
+  airflow_postgres:
+    image: postgres:15-alpine
+    container_name: airflow_postgres
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    ports:
+      - "5435:5432"  # Используем свободный порт 5435
+    volumes:
+      - airflow_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow -d airflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - airflow_network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - airflow_network
+    restart: unless-stopped
+
+  airflow:
+    image: apache/airflow:2.7.0
+    container_name: airflow
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@airflow_postgres:5432/airflow
+      - AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY:-46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=}
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__WEBSERVER__RBAC=True
+      - AIRFLOW__WEBSERVER__SECRET_KEY=${WEBSERVER_SECRET_KEY:-your_super_secret_key}
+      - AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
+      - AIRFLOW__WEBSERVER__DEFAULT_UI_TIMEZONE=Europe/Moscow
+      - AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL=60
+      - AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL=60
+      - AIRFLOW__CORE__ENABLE_XCOM_PICKLING=True
+      - AIRFLOW__API__AUTH_BACKEND=airflow.api.auth.backend.basic_auth
+      - AIRFLOW__LOGGING__LOGGING_LEVEL=INFO
+      - PYTHONPATH=/opt/airflow
+      - TZ=Europe/Moscow
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./scripts:/opt/airflow/scripts
+      - ./plugins:/opt/airflow/plugins
+      - ./logs:/opt/airflow/logs
+      - ./docker/requirements.txt:/requirements.txt
+    ports:
+      - "8080:8080"
+    command: >
+      bash -c "
+        pip install --no-cache-dir -r /requirements.txt &&
+        airflow db init &&
+        airflow users create \
+          --username admin \
+          --password admin123 \
+          --firstname Admin \
+          --lastname User \
+          --role Admin \
+          --email admin@example.com || echo 'User already exists' &&
+        airflow webserver & airflow scheduler
+      "
+    depends_on:
+      airflow_postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - airflow_network
+    restart: unless-stopped

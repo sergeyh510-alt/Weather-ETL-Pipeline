@@ -1,0 +1,11 @@
+apache-airflow==2.7.0
+apache-airflow-providers-postgres==5.5.0
+openmeteo-requests==1.0.0
+pandas==2.0.3
+numpy==1.24.3
+requests-cache==1.1.0
+retry-requests==1.0.0
+sqlalchemy==1.4.47
+psycopg2-binary==2.9.7
+pytz==2023.3
+python-dotenv==1.0.0
