@@ -50,7 +50,8 @@
 
    * Лицензия
 
- ###  📖 Описание проекта
+ ###  📖 
+ ### Описание проекта
 
 Weather ETL Pipeline — это полностью автоматизированная система для сбора, обработки и хранения погодных данных с использованием Open-Meteo API. 
 Система построена на основе Apache Airflow и запускается в Docker-контейнерах, обеспечивая изоляцию, масштабируемость и надежность.
@@ -70,12 +71,14 @@ Weather ETL Pipeline — это полностью автоматизирова�
 
     ✅ Логирование — подробные логи всех операций
 
-### 📊 Источники данных
+### 📊 
+### Источники данных
 
    * Open-Meteo Historical API — архивные данные с 2020 года
 
    * Open-Meteo Forecast API — прогнозные данные на 7 дней
-### 🗄️ Хранимые параметры
+### 🗄️ 
+### Хранимые параметры
 
 * 🌡️ Температура на высоте 2м
 
@@ -108,7 +111,8 @@ Weather ETL Pipeline — это полностью автоматизирова�
 
 <img width="1206" height="899" alt="image" src="https://github.com/user-attachments/assets/03e5bf87-e06c-493e-b9e4-05b5c25b6e52" />
 
-## 📋 Предварительные требования
+## 📋 
+### Предварительные требования
 ### Системные требования
 |Компонент         |	Минимальная версия	|Рекомендуемая версия
 |------------------|-----------------------|--------------------|
@@ -187,7 +191,8 @@ docker-compose --version
  Проверка, что Docker работает
 docker run hello-world
 ```
-## 📂 Структура проекта
+## 📂 
+## Структура проекта
 ```bach
 Mteo_Weather_AirFlow/
 │
@@ -220,7 +225,8 @@ Mteo_Weather_AirFlow/
 ├── Makefile                                 # Автоматизация команд
 └── README.md                                # Документация
 ```
-###🔧 Установка и настройка
+###🔧 
+### Установка и настройка
 
 #### 1. Клонирование репозитория
 ```bash
@@ -517,7 +523,8 @@ services:
     restart: unless-stopped
 
 ```
-### 🚀 Запуск проекта
+### 🚀 
+### Запуск проекта
 #### Быстрый старт
 ```bash
  1. Сборка образов
@@ -570,7 +577,8 @@ curl http://localhost:8080/health
  Логин: admin, Пароль: admin123
 ```
 
-## 📊 Компоненты системы
+## 📊 
+## Компоненты системы
 ### 1. DAG (weather_etl_complete.py)
 
 #### Местоположение: dags/weather_etl_complete.py (159 строк)
@@ -684,7 +692,8 @@ def get_table_stats():
     """Получение статистики по таблице"""
     # Возвращает словарь со статистикой
 ```
-### 🔄 Работа с DAG
+### 🔄 
+### Работа с DAG
 #### Запуск DAG
 
 #### Через Web UI:
@@ -751,7 +760,8 @@ schedule_interval='0 0 * * 0'
 # По расписанию cron
 schedule_interval='0 0,12 * * *'  # Дважды в день
 ```
-### 🧪 Тестирование
+### 🧪 
+### Тестирование
 ```bash
 # test_api_connection.py
 import requests
@@ -834,7 +844,8 @@ docker exec airflow_webserver airflow tasks test \
 docker exec airflow_webserver airflow tasks logs \
     weather_etl_complete forecast_load 2024-01-01
 ```
-## 📊 Мониторинг и отладка
+## 📊 
+## Мониторинг и отладка
 ### Логи
 ```bash
 # Логи всех контейнеров
@@ -903,7 +914,8 @@ def load_forecast():
         raise
 ```
 
-### 🏭 Производственный деплой
+### 🏭 
+### Производственный диплой
 #### Настройки для продакшена
 ```bash
 # docker-compose.prod.yml
@@ -959,7 +971,8 @@ services:
       - AIRFLOW__CELERY__BROKER_URL=redis://redis:6379/0
       - AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@postgres/airflow
 ```
-### 🐛 Устранение неполадок
+### 🐛 
+### Устранение неполадок
 #### Распространенные проблемы и решения
 #### 1. Контейнеры не запускаются
 ```bash
@@ -1032,7 +1045,8 @@ docker exec -it weather_postgres psql -U postgres -d weather_db -c "
 TRUNCATE TABLE weather_data.historical_weather CASCADE;
 "
 ```
-### 📝 Команды для разработки
+### 📝 
+### Команды для разработки
 #### Работа с Docker
 ```bash
 
@@ -1137,7 +1151,8 @@ clean:
 test:
 	docker exec airflow_webserver python /opt/airflow/scripts/forecast_weather_loader.py
 ```
-## 📈 Дополнительные возможности
+## 📈 
+### Дополнительные возможности
 ### Оповещения в Telegram
 ```bash
 # plugins/telegram_alert.py
@@ -1223,7 +1238,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-### 🤝 Вклад в проект
+### 🤝 
+### Вклад в проект
 
     *  Fork репозитория
 
@@ -1243,7 +1259,8 @@ SOFTWARE.
 
    *   Пишите тесты для нового функционала
 
-## 📞 Контакты
+## 📞 
+### Контакты
 *  Contact Sergey Chekryzhov
 *  Email sergeyh510@gmail.com
 *  GitHub sergeyh510-alt
