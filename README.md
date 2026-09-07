@@ -1214,7 +1214,8 @@ $$ LANGUAGE plpgsql;
 -- Запуск
 SELECT cleanup_old_data();
 ```
-### 📄 Лицензия
+### 📄 
+### Лицензия
 ```bash
 MIT License
 
