@@ -14,108 +14,97 @@
 
 <br><br>
 
-![версия](https://img.shields.io/badge/version-1.0.0-blue)
-![лицензия](https://img.shields.io/badge/license-MIT-green)
-![статус](https://img.shields.io/badge/status-active-brightgreen)
+![version](https://img.shields.io/badge/version-1.0.0-blue)
+![license](https://img.shields.io/badge/license-MIT-green)
+![status](https://img.shields.io/badge/status-active-brightgreen)
 
 </div>
 
-# 📊 Полный гайд по развертыванию и использованию
+# 📊 Complete Deployment and Usage Guide
 
-## 📋 Оглавление
+## 📋 Table of Contents
 
-   * [Описание проекта](#Описание-проекта)
-
-   * [Архитектура](#-Архитектура)
-
-   * [Предварительные требования](#Предварительные-требования)
-
-   * [Установка и настройка](#Установка-и-настройка)
-
-   * [Структура проекта](#Структура-проекта)
-
-   * [Компоненты системы](#Компоненты-системы)
-
-   * [Работа с DAG](#Работа-с-DAG)
-
-   * [Тестирование](#Тестирование)
-
-   * [Мониторинг и отладка](#Мониторинг-и-отладка)
-
-   * [Производственный диплой](#Производственный-диплой)
-
-   * [Устранение неполадок](#Устранение-неполадок)
-
-   * [Команды для разработки](#Команды-для-разработки)
-
-   * [Лицензия](#Лицензия)
-   * [Контакты](#Контакты)
+   * [Project Description](#project-description)
+   * [Architecture](#architecture)
+   * [Prerequisites](#prerequisites)
+   * [Installation and Setup](#installation-and-setup)
+   * [Project Structure](#project-structure)
+   * [System Components](#system-components)
+   * [Working with DAG](#working-with-dag)
+   * [Testing](#testing)
+   * [Monitoring and Debugging](#monitoring-and-debugging)
+   * [Production Deployment](#production-deployment)
+   * [Troubleshooting](#troubleshooting)
+   * [Development Commands](#development-commands)
+   * [License](#license)
+   * [Contacts](#contacts)
 
  ###  📖 
- ### Описание проекта
+ ### Project Description
 
-Weather ETL Pipeline — это полностью автоматизированная система для сбора, обработки и хранения погодных данных с использованием Open-Meteo API. 
-Система построена на основе Apache Airflow и запускается в Docker-контейнерах, обеспечивая изоляцию, масштабируемость и надежность.
-### 🎯 Основные возможности
+Weather ETL Pipeline is a fully automated system for collecting, processing, and storing weather data using the Open-Meteo API. 
+The system is built on Apache Airflow and runs in Docker containers, providing isolation, scalability, and reliability.
 
-    ✅ Автоматический сбор данных — загрузка исторических и прогнозных данных каждые 30 минут
+### 🎯 Key Features
 
-    ✅ Два режима загрузки — исторические данные (при первом запуске) и прогнозные данные (регулярно)
+    ✅ Automatic data collection — loads historical and forecast data every 30 minutes
 
-    ✅ Хранение в PostgreSQL — все данные сохраняются с временными метками в UTC
+    ✅ Two loading modes — historical data (on first run) and forecast data (regularly)
 
-    ✅ Веб-интерфейс Airflow — удобный мониторинг и управление DAG
+    ✅ PostgreSQL storage — all data is stored with UTC timestamps
 
-    ✅ Docker-изоляция — все сервисы запускаются в контейнерах
+    ✅ Airflow Web Interface — convenient monitoring and DAG management
 
-    ✅ Обработка ошибок — автоматические повторные попытки при сбоях
+    ✅ Docker isolation — all services run in containers
 
-    ✅ Логирование — подробные логи всех операций
+    ✅ Error handling — automatic retries on failures
+
+    ✅ Logging — detailed logs of all operations
 
 ### 📊 
-### Источники данных
+### Data Sources
 
-   * Open-Meteo Historical API — архивные данные с 2020 года
+   * Open-Meteo Historical API — archive data from 2020 onwards
 
-   * Open-Meteo Forecast API — прогнозные данные на 7 дней
+   * Open-Meteo Forecast API — 7-day forecast data
 ### 🗄️ 
-### Хранимые параметры
+### Stored Parameters
 
-* 🌡️ Температура на высоте 2м
+* 🌡️ Temperature at 2m
 
-* 💧 Относительная влажность
+* 💧 Relative Humidity
 
-* 🌡️ Точка росы
+* 🌡️ Dew Point
 
-* 🌡️ Кажущаяся температура
+* 🌡️ Apparent Temperature
 
-* 🌧️ Осадки, дождь, снег
+* 🌧️ Precipitation, Rain, Snow
 
-* ❄️ Глубина снега
+* ❄️ Snow Depth
 
-* 🏷️ Код погоды
+* 🏷️ Weather Code
 
-* 📊 Давление (MSL и поверхностное)
+* 📊 Pressure (MSL and Surface)
 
-* ☁️ Облачность (общая, низкая, средняя, высокая)
+* ☁️ Cloud Cover (Total, Low, Mid, High)
 
-* 💨 Ветер (скорость на 10м и 100м, направление, порывы)
+* 💨 Wind (Speed at 10m and 100m, Direction, Gusts)
 
-* 🌱 Почвенные параметры (температура и влажность на разных глубинах)
+* 🌱 Soil Parameters (Temperature and Moisture at different depths)
 
 ## 🏗️ 
-### Архитектура
-### Диаграмма системы  
+### Architecture
+### System Diagram 
 <img width="1729" height="706" alt="image" src="https://github.com/user-attachments/assets/dc0725b2-ee6b-4475-a2d7-df37dbae038b" />
      
-## Поток данных
+## Data Flow
 
 <img width="1206" height="899" alt="image" src="https://github.com/user-attachments/assets/03e5bf87-e06c-493e-b9e4-05b5c25b6e52" />
 
 ## 📋 
-### Предварительные требования
-### Системные требования
-|Компонент         |	Минимальная версия	|Рекомендуемая версия
+### Prerequisites
+### System Requirements
+|Component         |	Minimum Version	|Recommended Version
 |------------------|-----------------------|--------------------|
 Docker	           |20.10.x	              |24.0.x+
 Docker Compose	   |2.0.x               	|2.20.x+
@@ -123,7 +112,7 @@ Python	           |3.8	                  |3.10+
 RAM	               |4 GB                  |8 GB+
 Disk Space	       |10 GB	                |20 GB+
 
-### Поддерживаемые ОС
+### Supported OS
 
   * ✅ Windows 10/11 (с WSL2)
 
@@ -131,106 +120,109 @@ Disk Space	       |10 GB	                |20 GB+
 
   * ✅ Linux (Ubuntu 20.04+, Debian 11+, CentOS 8+)
 
-### Установка Docker
-* Windows (с WSL2)
+### Installing Docker
+* Windows (with WSL2)
  powershell
 
- 1. Установите WSL2
-```bach 
+ 1. Install WSL2
+```bash 
 wsl --install
 
 
- 2. Перезагрузите компьютер
+ 2. Restart your computer
 
- 3. Скачайте и установите Docker Desktop
+ 3. Download and install Docker Desktop
 
  https://www.docker.com/products/docker-desktop/
 
- 4. Включите WSL2 в настройках Docker Desktop
+ 4. Enable WSL2 in Docker Desktop settings
 
  Settings → General → Use WSL 2 based engine ✅
 ```
 ### macOS
 ```bash
 
- 1. Скачайте и установите Docker Desktop
+
+ 1. Download and install Docker Desktop
  https://www.docker.com/products/docker-desktop/
 
- 2. Или через Homebrew
+ 2. Or via Homebrew
 brew install --cask docker
 ```
 ### Linux (Ubuntu/Debian)
 ```bach 
 
-1. Обновите систему
+
+1. Update the system
 sudo apt update && sudo apt upgrade -y
 
- 2. Установите Docker
+ 2. Install Docker
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 
- 3. Добавьте пользователя в группу docker
+ 3. Add user to docker group
 sudo usermod -aG docker $USER
 
- 4. Перезагрузитесь или выполните
+ 4. Reboot or run
 newgrp docker
 
- 5. Установите Docker Compose Plugin
+ 5. Install Docker Compose Plugin
 sudo apt install docker-compose-plugin -y
 
-### Проверка установки
-```bach 
+### Verify Installation
+```bash 
 
- Проверка Docker
+ Check Docker
 docker --version
- Вывод: Docker version 24.0.7, build afdd53b
+ Output: Docker version 24.0.7, build afdd53b
 
- Проверка Docker Compose
+ Check Docker Compose
 docker-compose --version
- Вывод: Docker Compose version v2.23.0
+ Output: Docker Compose version v2.23.0
 
- Проверка, что Docker работает
+ Check that Docker is running
 docker run hello-world
 ```
 ## 📂 
-## Структура проекта
+## Project Structure
 ```bach
 Mteo_Weather_AirFlow/
 │
-├── dags/                                    # DAG файлы Airflow
+├── dags/                                    # Airflow DAG files
 │   ├── __init__.py
-│   ├── weather_etl_complete.py             # Основной DAG (159 строк)
-│   └── test_dag.py                         # Тестовый DAG
+│   ├── weather_etl_complete.py             # Main DAG (159 lines)
+│   └── test_dag.py                         # Test DAG
 │
-├── scripts/                                 # Python скрипты ETL
+├── scripts/                                 # Python ETL scripts
 │   ├── __init__.py
-│   ├── historical_weather_loader.py       # Загрузка истории (~450 строк)
-│   └── forecast_weather_loader.py         # Загрузка прогноза (~450 строк)
+│   ├── historical_weather_loader.py       # History loader (~450 lines)
+│   └── forecast_weather_loader.py         # Forecast loader (~450 lines)
 │
-├── plugins/                                 # Плагины Airflow
+├── plugins/                                 # Airflow plugins
 │   ├── __init__.py
-│   └── weather_utils.py                   # Утилиты для работы с БД
+│   └── weather_utils.py                   # DB utilities
 │
-├── docker/                                  # Docker конфигурация
-│   └── requirements.txt                    # Python зависимости
+├── docker/                                  # Docker configuration
+│   └── requirements.txt                    # Python dependencies
 │
-├── init-scripts/                            # Скрипты инициализации БД
-│   └── 01_create_weather_table.sql        # Создание таблицы
+├── init-scripts/                            # DB initialization scripts
+│   └── 01_create_weather_table.sql        # Table creation
 │
-├── logs/                                    # Логи Airflow
-├── data/                                    # Данные (кеш API)
-├── .env                                     # Переменные окружения
-├── .gitignore                               # Git игнорирование
-├── docker-compose.yml                       # Docker Compose конфигурация
-├── Dockerfile                               # Docker образ Airflow
-├── Makefile                                 # Автоматизация команд
-└── README.md                                # Документация
+├── logs/                                    # Airflow logs
+├── data/                                    # Data (API cache)
+├── .env                                     # Environment variables
+├── .gitignore                               # Git ignore
+├── docker-compose.yml                       # Docker Compose configuration
+├── Dockerfile                               # Airflow Docker image
+├── Makefile                                 # Command automation
+└── README.md                                # Documentation
 ```
 ###🔧 
-### Установка и настройка
+### Installation and Setup
 
-#### 1. Клонирование репозитория
+#### 1. Clone the repository
 ```bash
+
 
 SSH
 git clone git@github.com:yourusername/Mteo_Weather_AirFlow.git
@@ -238,24 +230,27 @@ git clone git@github.com:yourusername/Mteo_Weather_AirFlow.git
 HTTPS
 git clone https://github.com/yourusername/Mteo_Weather_AirFlow.git
 
- Переход в проект
+ Navigate to project
 cd Mteo_Weather_AirFlow
 ```
-#### 2. Создание файлов конфигурации
-#### .env файл
+#### 2. Create configuration files
+#### .env file
 ```bash
 
-Создайте .env файл
+
+Create .env file
 cat > .env << EOF
 FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
 WEBSERVER_SECRET_KEY=your_super_secret_key_change_me
 AIRFLOW_UID=50000
 AIRFLOW_GID=50000
+EOFOW_GID=50000
 EOF
 ```
 
 #### docker/requirements.txt
 ```bash
+
 
 mkdir -p docker
 cat > docker/requirements.txt << EOF
@@ -272,12 +267,12 @@ pytz==2023.3
 python-dotenv==1.0.0
 EOF
 ```
-#### 3. Создание SQL таблицы
+#### 3. Create SQL table
 ```bash
 init-scripts/01_create_weather_table.sql
 sql
 
--- Создание схемы
+-- Create schema
 -- Table: weather_data.historical_weather
 
 -- DROP TABLE IF EXISTS weather_data.historical_weather;
@@ -337,16 +332,16 @@ ALTER TABLE IF EXISTS weather_data.historical_weather
     OWNER to postgres;
 
 COMMENT ON TABLE weather_data.historical_weather
-    IS 'Таблица с историческими и прогнозными погодными данными';
+    IS 'Table with historical and forecast weather data';
 
 COMMENT ON COLUMN weather_data.historical_weather.timestamp_utc
-    IS 'Время в UTC (без смещения)';
+    IS 'Time in UTC (without offset)';
 
 COMMENT ON COLUMN weather_data.historical_weather.temperature_2m
-    IS 'Температура на высоте 2м в °C';
+    IS 'Temperature at 2m in °C';
 
 COMMENT ON COLUMN weather_data.historical_weather.relative_humidity_2m
-    IS 'Относительная влажность на высоте 2м в %';
+    IS 'Relative humidity at 2m in %';
 -- Index: idx_weather_location
 
 -- DROP INDEX IF EXISTS weather_data.idx_weather_location;
@@ -427,7 +422,7 @@ services:
       POSTGRES_DB: weather_db
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - "5434:5432"  # Используем свободный порт 5434
+      - "5434:5432"  # Use free port 5434
     volumes:
       - weather_postgres_data:/var/lib/postgresql/data
       - ./init-scripts:/docker-entrypoint-initdb.d
@@ -448,7 +443,7 @@ services:
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
     ports:
-      - "5435:5432"  # Используем свободный порт 5435
+      - "5435:5432"  # Use free port 5435
     volumes:
       - airflow_postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -523,89 +518,91 @@ services:
       - airflow_network
     restart: unless-stopped
 
+
 ```
 ### 🚀 
-### Запуск проекта
-#### Быстрый старт
+### Running the Project
+#### Quick Start
 ```bash
- 1. Сборка образов
+ 1. Build images
 docker-compose build
 
- 2. Запуск всех сервисов
+ 2. Start all services
 docker-compose up -d
 
- 3. Проверка статуса
+ 3. Check status
 docker-compose ps
 
- 4. Просмотр логов
+ 4. View logs
 docker-compose logs -f
 ```
-####  Пошаговый запуск
+####  Step-by-Step Launch
 ```bash
- 1. Проверка Docker
+ 1. Verify Docker
 docker --version
 docker-compose --version
 
- 2. Создание необходимых папок
+ 2. Create necessary folders
 mkdir -p dags scripts plugins logs init-scripts docker
 
- 3. Копирование файлов в контейнер (если нужно)
+ 3. Copy files to container (if needed)
 docker cp dags/weather_etl_complete.py airflow:/opt/airflow/dags/
 docker cp scripts/historical_weather_loader.py airflow:/opt/airflow/scripts/
 docker cp scripts/forecast_weather_loader.py airflow:/opt/airflow/scripts/
 docker cp plugins/weather_utils.py airflow:/opt/airflow/plugins/
 
- 4. Перезапуск Airflow
+ 4. Restart Airflow
 docker restart airflow_webserver
 docker restart airflow_scheduler
 
- 5. Проверка работы DAG
+ 5. Check DAG operation
 docker exec airflow_webserver airflow dags list | grep weather
 ```
-#### Проверка работы
+#### Verify Operation
 ```bash
- 1. Проверка PostgreSQL
+ 1. Check PostgreSQL
 docker exec -it weather_postgres psql -U postgres -d weather_db -c "\dt weather_data.*"
 
- 2. Проверка Redis
+ 2. Check Redis
 docker exec -it airflow_redis redis-cli ping
 
- 3. Проверка Airflow
+ 3. Check Airflow
 curl http://localhost:8080/health
 
- 4. Открытие Airflow UI
- Откройте браузер: http://localhost:8080
- Логин: admin, Пароль: admin123
+ 4. Open Airflow UI
+ Open browser: http://localhost:8080
+ Login: admin, Password: admin123
 ```
 
 ## 📊 
-## Компоненты системы
+## System Components
 ### 1. DAG (weather_etl_complete.py)
 
-#### Местоположение: dags/weather_etl_complete.py (159 строк)
+#### Location: dags/weather_etl_complete.py (159 lines)
 
-#### Описание: 
-Основной оркестратор, управляющий процессом ETL.
+#### Description:
+Main orchestrator managing the ETL process.
 
-#### Структура:
+#### Structure:
 ```bash
- 1. Импорты (10 строк)
- 2. Настройки DAG (20 строк)  
- 3. Функции-обертки (40 строк)
- 4. Определение задач (30 строк)
- 5. Зависимости (10 строк)
+ 1. Imports (10 lines)
+ 2. DAG settings (20 lines)  
+ 3. Wrapper functions (40 lines)
+ 4. Task definitions (30 lines)
+ 5. Dependencies (10 lines)
 ```
-#### Логика работы:
+#### Logic:
 ```bash
 def check_and_choose_branch():
-    """Проверяет таблицу и выбирает ветку"""
-    if таблица пуста:
-        return 'historical_load'    # Загрузка истории
+    """Checks the table and chooses a branch"""
+    if table is empty:
+        return 'historical_load'    # Load history
     else:
-        return 'forecast_load'      # Загрузка прогноза
+        return 'forecast_load'      # Load forecast
+
 
 ```
-#### Граф зависимостей:
+#### Dependency Graph:
 ```bash
 branch_check_table
         ↓
@@ -621,148 +618,150 @@ historical_load  forecast_load
 ```
 ### 2. Historical Loader (historical_weather_loader.py)
 
-#### Местоположение: 
+#### Location:
 scripts/historical_weather_loader.py (~450 строк)
 
-#### Что делает:
+#### What it does:
 
-  *  Загружает архивные данные за последние 30 дней
+* Loads archive data for the last 30 days
 
-  *  Проверяет, какие дни уже загружены
+* Checks which days are already loaded
 
-  *  Сохраняет данные по дням в PostgreSQL
+* Saves data day by day to PostgreSQL
 
-#### Основные функции:
+#### Main functions:
 ```bash
 def get_existing_dates():
-    """Получение уже загруженных дат"""
-    # Возвращает список дат, уже присутствующих в БД
+    """Get already loaded dates"""
+    # Returns a list of dates already present in the DB
 
 def get_historical_data_for_date(date_str):
-    """Загрузка данных за конкретный день"""
-    # Запрос к Open-Meteo Archive API
+    """Load data for a specific day"""
+    # Request to Open-Meteo Archive API
 
 def save_to_postgres(df):
-    """Сохранение данных в PostgreSQL"""
-    # Вставка данных с проверкой типов
+    """Save data to PostgreSQL"""
+    # Insert data with type checking
 ```
 ### 3. Forecast Loader (forecast_weather_loader.py)
 
-#### Местоположение: 
+#### Location: 
 scripts/forecast_weather_loader.py (~450 строк)
 
-#### Что делает:
+#### What it does:
 
-   *  Загружает прогнозные данные на сегодня
+* Loads forecast data for today
 
-   *  Добавляет только новые записи (без дубликатов)
+* Adds only new records (no duplicates)
 
-   *  Сохраняет в PostgreSQL
+* Saves to PostgreSQL
 
-#### Особенности:
+#### Features
 
-   *  Использует requests вместо openmeteo_requests для стабильности
+* Uses requests instead of openmeteo_requests for stability
 
-   *  Проверяет дубликаты перед вставкой
+* Checks for duplicates before insertion
 
-   *  Обрабатывает ошибки API
+* Handles API errors
 
 ### 4. Weather Utils (weather_utils.py)
 
-#### Местоположение: 
+#### Location: 
 plugins/weather_utils.py (~80 строк)
 
-#### Описание: 
-Утилиты для работы с базой данных.
+#### Description: 
+Utilities for database operations.
 
-#### Функции:
+#### Functions:
 ```bash
 def get_db_engine():
-    """Создание подключения к БД"""
-    # Возвращает SQLAlchemy engine
+    """Create DB connection"""
+    # Returns SQLAlchemy engine
 
 def check_table_empty():
-    """Проверка, пустая ли таблица"""
-    # Возвращает True/False
+    """Check if table is empty"""
+    # Returns True/False
 
 def get_last_timestamp():
-    """Получение последней временной метки"""
-    # Возвращает datetime
+    """Get last timestamp"""
+    # Returns datetime
 
 def get_table_stats():
-    """Получение статистики по таблице"""
-    # Возвращает словарь со статистикой
+    """Get table statistics"""
+    # Returns dictionary with stats
 ```
 ### 🔄 
-### Работа с DAG
-#### Запуск DAG
+### Working with DAG
+#### Triggering DAG
 
-#### Через Web UI:
+#### Via Web UI:
 
-  *  Откройте http://localhost:8080
+* Open http://localhost:8080
 
-  *  Логин: admin / admin123
+* Login: admin / admin123
 
-  *  Найдите DAG weather_etl_complete
+* Find DAG weather_etl_complete
 
-  *  Включите переключатель (ON)
+* Toggle ON
 
-  *  Нажмите ▶️ Trigger DAG
+* Click ▶️ Trigger DAG
 
-#### Через CLI:
+#### ia CLI:
 ```bash
-# Запуск DAG
+# Trigger DAG
 docker exec airflow_webserver airflow dags trigger weather_etl_complete
 
-# Просмотр статуса
+# View status
 docker exec airflow_webserver airflow dags state weather_etl_complete
 
-# Просмотр списка DAG
+# List DAGs
+docker exec airflow_webserver airflow dags list
 docker exec airflow_webserver airflow dags list
 ```
-### Мониторинг выполнения
+### Monitoring Execution
 
 #### Web UI:
 
-  *  Grid View — таблица всех запусков
+* Grid View — table of all runs
 
-  *  Graph View — визуализация зависимостей
+* Graph View — visualization of dependencies
 
-  *  Tree View — иерархический просмотр
+* Tree View — hierarchical view
 
-  *  Log — логи каждой задачи
+* Log — logs for each task
 
 #### CLI:
 ```bash
-# Просмотр логов конкретной задачи
+# View logs for a specific task
 docker exec airflow_webserver airflow tasks logs \
     weather_etl_complete forecast_load \
     2024-01-01T00:00:00+00:00
 
-# Проверка статуса задач
+# Check task statuses
 docker exec airflow_webserver airflow tasks states-for-dag-run \
     weather_etl_complete manual__2024-01-01T00:00:00+00:00
 
+
 ```
-#### Настройка расписания
+#### Scheduling Settings
 ```bash
-# Каждые 30 минут
+# Every 30 minutes
 schedule_interval='*/30 * * * *'
 
-# Каждый час
+# Every hour
 schedule_interval='@hourly'
 
-# Каждый день в полночь
+# Every day at midnight
 schedule_interval='@daily'
 
-# Каждое воскресенье в 00:00
+# Every Sunday at 00:00
 schedule_interval='0 0 * * 0'
 
-# По расписанию cron
-schedule_interval='0 0,12 * * *'  # Дважды в день
+# Cron schedule
+schedule_interval='0 0,12 * * *'  # Twice a day
 ```
 ### 🧪 
-### Тестирование
+### Testing
 ```bash
 # test_api_connection.py
 import requests
@@ -779,32 +778,32 @@ def test_openmeteo_api():
         response = requests.get(url, params=params, timeout=10)
         response.raise_for_status()
         data = response.json()
-        print(f"✅ API работает! Температура: {data['current']['temperature_2m']}°C")
+        print(f"✅ API working! Temperature: {data['current']['temperature_2m']}°C")
         return True
     except Exception as e:
-        print(f"❌ Ошибка: {e}")
+        print(f"❌ Error: {e}")
         return False
 
 if __name__ == '__main__':
     test_openmeteo_api()
 ```
-### Тест скриптов
+### Script Testing
 ```bash
-# Тест исторической загрузки
+# Test historical loader
 docker exec airflow_webserver python /opt/airflow/scripts/historical_weather_loader.py
 
-# Тест прогнозной загрузки
+# Test forecast loader
 docker exec airflow_webserver python /opt/airflow/scripts/forecast_weather_loader.py
 
-# Тест с полным логированием
+# Test with full logging
 docker exec airflow_webserver python /opt/airflow/scripts/forecast_weather_loader.py 2>&1 | tee /tmp/test.log
 ```
-### Тест базы данных
+### Database Testing
 ```bash
--- Проверка структуры таблицы
+-- Check table structure
 \d weather_data.historical_weather
 
--- Проверка данных
+-- Check data
 SELECT 
     COUNT(*) as total,
     data_source,
@@ -813,7 +812,7 @@ SELECT
 FROM weather_data.historical_weather
 GROUP BY data_source;
 
--- Проверка последних записей
+-- Check recent records
 SELECT 
     timestamp_utc,
     temperature_2m,
@@ -823,7 +822,7 @@ FROM weather_data.historical_weather
 ORDER BY timestamp_utc DESC 
 LIMIT 10;
 
--- Проверка дубликатов
+-- Check duplicates
 SELECT 
     timestamp_utc, 
     COUNT(*) 
@@ -832,41 +831,41 @@ GROUP BY timestamp_utc
 HAVING COUNT(*) > 1;
 ```
 
-### Интеграционные тесты
+### Integration Tests
 ```bash
-# 1. Запуск DAG в тестовом режиме
+# 1. Run DAG in test mode
 docker exec airflow_webserver airflow dags test weather_etl_complete 2024-01-01
 
-# 2. Тест конкретной задачи
+# 2. Test specific task
 docker exec airflow_webserver airflow tasks test \
     weather_etl_complete forecast_load 2024-01-01
 
-# 3. Просмотр логов теста
+# 3. View test logs
 docker exec airflow_webserver airflow tasks logs \
     weather_etl_complete forecast_load 2024-01-01
 ```
 ## 📊 
-## Мониторинг и отладка
-### Логи
+## Monitoring and Debugging
+### Logs
 ```bash
-# Логи всех контейнеров
+# Logs of all containers
 docker-compose logs -f
 
-# Логи конкретного контейнера
+# Logs of specific container
 docker logs -f airflow_webserver
 docker logs -f airflow_scheduler
 docker logs -f weather_postgres
 
-# Логи с фильтром по ошибкам
+# Logs filtered by errors
 docker logs airflow_webserver 2>&1 | grep -i error
 docker logs airflow_webserver 2>&1 | grep -i traceback
 
-# Последние N строк
+# Last N lines
 docker logs airflow_webserver --tail 100
 ```
-### Метрики и мониторинг
+### Metrics and Monitoring
 ```bash
--- Количество записей по дням
+-- Record count by day
 SELECT 
     DATE(timestamp_utc) as date,
     COUNT(*) as records,
@@ -875,7 +874,7 @@ FROM weather_data.historical_weather
 GROUP BY DATE(timestamp_utc)
 ORDER BY date DESC;
 
--- Статистика по источникам данных
+-- Statistics by data source
 SELECT 
     data_source,
     COUNT(*) as total,
@@ -884,40 +883,40 @@ SELECT
 FROM weather_data.historical_weather
 GROUP BY data_source;
 
--- Проверка пропусков данных
+-- Check for missing data
 SELECT 
     DATE(timestamp_utc) as date,
     COUNT(*) as hours,
     CASE 
-        WHEN COUNT(*) < 24 THEN '⚠️ Неполные данные'
-        ELSE '✅ Полные данные'
+        WHEN COUNT(*) < 24 THEN '⚠️ Incomplete data'
+        ELSE '✅ Complete data'
     END as status
 FROM weather_data.historical_weather
 GROUP BY DATE(timestamp_utc)
 ORDER BY date DESC
 LIMIT 7;
 ```
-### Отладка DAG
+### DAG Debugging
 ```bash
-# Добавление отладочных сообщений
+# Add debug messages
 def load_forecast():
-    logger.info("🚀 Начало загрузки прогноза")
+    logger.info("🚀 Starting forecast load")
     try:
         from scripts.forecast_weather_loader import main as forecast_main
-        logger.info("📦 Модуль импортирован")
+        logger.info("📦 Module imported")
         result = forecast_main()
-        logger.info(f"📊 Результат: {result}")
+        logger.info(f"📊 Result: {result}")
         return result
     except Exception as e:
-        logger.error(f"❌ Ошибка: {e}")
+        logger.error(f"❌ Error: {e}")
         import traceback
         traceback.print_exc()
         raise
 ```
 
 ### 🏭 
-### Производственный диплой
-#### Настройки для продакшена
+### Production Deployment
+#### Production Settings
 ```bash
 # docker-compose.prod.yml
 services:
@@ -936,28 +935,29 @@ services:
       - AIRFLOW__LOGGING__LOGGING_LEVEL=WARNING
     restart: always
 
+
 ```
 
-### Безопасность
+### Security
 ```bash
-# Генерация secure ключей
+# Generate secure keys
 openssl rand -base64 32  # FERNET_KEY
 openssl rand -hex 32     # SECRET_KEY
 --------------
-# Настройка .env
+# Configure .env
 cat > .env << EOF
-FERNET_KEY=ваш_ключ
-WEBSERVER_SECRET_KEY=ваш_секретный_ключ
-DB_USER=ваш_пользователь
-DB_PASSWORD=ваш_пароль
+FERNET_KEY=your_key
+WEBSERVER_SECRET_KEY=your_secret_key
+DB_USER=your_user
+DB_PASSWORD=your_password
 DB_NAME=weather_db
 EOF
 --------------
-# Ограничение прав доступа
+# Restrict permissions
 chmod 600 .env
 chmod 644 docker-compose.yml
 ```
-### Масштабирование
+### Scaling
 ```bash
 # docker-compose.scale.yml
 services:
@@ -973,163 +973,169 @@ services:
       - AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@postgres/airflow
 ```
 ### 🐛 
-### Устранение неполадок
-#### Распространенные проблемы и решения
-#### 1. Контейнеры не запускаются
+### Troubleshooting
+#### Common Issues and Solutions
+#### 1. Containers don't start
 ```bash
-# Проверка логов
+# Check logs
 docker-compose logs
 
-# Перезапуск с очисткой
+# Restart with cleanup
 docker-compose down -v
 docker-compose build --no-cache
 docker-compose up -d
 
-# Проверка портов
+# Check ports
 netstat -ano | findstr :5434  # Windows
 sudo lsof -i :5434             # Mac/Linux
 ```
-#### 2. Ошибка подключения к БД
+#### 2. Database connection error
 ```bash
-# Проверка статуса PostgreSQL
+# Check PostgreSQL status
 docker ps | grep postgres
 
-# Проверка подключения
+# Test connection
 docker exec -it weather_postgres psql -U postgres -d weather_db -c "SELECT 1;"
 
-# Перезапуск PostgreSQL
+# Restart PostgreSQL
 docker-compose restart weather_postgres
 ```
-#### 3. Ошибка ModuleNotFoundError
+#### 3. ModuleNotFoundError
 ```bash
-# Проверка установленных пакетов
+# Check installed packages
 docker exec airflow_webserver pip list
 
-# Установка пакетов
+# Install packages
 docker exec airflow_webserver pip install pandas numpy sqlalchemy
 
-# Проверка импортов
+# Check imports
 docker exec airflow_webserver python -c "import pandas; print('OK')"
 ```
-#### 4. API таймаут
+#### 4. API timeout
 ```bash
-# Проверка доступа к API
+# Check API access
 docker exec airflow_webserver curl -I https://api.open-meteo.com/v1/forecast
 
-# Проверка DNS
+# Check DNS
 docker exec airflow_webserver nslookup api.open-meteo.com
 
-# Увеличение таймаута в скрипте
-params = {'timeout': 60}  # вместо 30
+# Increase timeout in script
+params = {'timeout': 60}  # instead of 30
 ```
-#### 5. DAG не появляется в UI
+
+#### 5. DAG not appearing in UI
 ```bash
-# Проверка синтаксиса
+# Check syntax
 docker exec airflow_webserver python -m py_compile /opt/airflow/dags/weather_etl_complete.py
 
-# Проверка логирования
+# Check logs
 docker logs airflow_webserver | grep -i "weather_etl_complete"
 
-# Принудительная перезагрузка DAG
+# Force DAG reload
 docker exec airflow_webserver airflow dags list | grep weather
 ```
-#### Восстановление данных
+#### Data Recovery
 ```bash
-# Бэкап базы данных
+# Database backup
 docker exec -t weather_postgres pg_dump -U postgres weather_db > backup.sql
 
-# Восстановление
+# Restore
 cat backup.sql | docker exec -i weather_postgres psql -U postgres weather_db
 
-# Очистка таблицы
+# Clear table
 docker exec -it weather_postgres psql -U postgres -d weather_db -c "
 TRUNCATE TABLE weather_data.historical_weather CASCADE;
 "
 ```
 ### 📝 
-### Команды для разработки
-#### Работа с Docker
+### Development Commands
+#### Working with Docker
 ```bash
 
-# Управление контейнерами
-docker-compose up -d          # Запуск
-docker-compose down           # Остановка
-docker-compose restart        # Перезапуск
-docker-compose ps             # Статус
 
-# Работа с образами
-docker-compose build          # Сборка
-docker-compose build --no-cache  # Сборка без кеша
-docker rmi $(docker images -q)  # Удаление всех образов
+# Container management
+docker-compose up -d          # Start
+docker-compose down           # Stop
+docker-compose restart        # Restart
+docker-compose ps             # Status
 
-# Работа с томами
+# Working with images
+docker-compose build          # Build
+docker-compose build --no-cache  # Build without cache
+docker rmi $(docker images -q)  # Remove all images
+
+# Working with volumes
 docker volume ls
 docker volume prune -f
-docker-compose down -v        # Удаление томов
+docker-compose down -v        # Remove volumes
 
-# Логи
-docker-compose logs -f        # Все логи
-docker-compose logs airflow_webserver -f  # Логи конкретного сервиса
+# Logs
+docker-compose logs -f        # All logs
+docker-compose logs airflow_webserver -f  # Specific service logs
+
 
 ```
-#### Работа со скриптами
+#### Working with Scripts
 ```bash
-# Копирование файлов
+# Copy files
 docker cp dags/weather_etl_complete.py airflow_webserver:/opt/airflow/dags/
 docker cp scripts/forecast_weather_loader.py airflow_webserver:/opt/airflow/scripts/
 
-# Запуск скриптов
+# Run scripts
 docker exec airflow_webserver python /opt/airflow/scripts/forecast_weather_loader.py
 
-# Проверка синтаксиса
+# Syntax check
 docker exec airflow_webserver python -m py_compile /opt/airflow/scripts/*.py
 
+
 ```
-#### Работа с базой данных
+#### Working with Database
 ```bash
-# Подключение к PostgreSQL
+# Connect to PostgreSQL
 docker exec -it weather_postgres psql -U postgres -d weather_db
 
-# Выполнение SQL запроса
+# Execute SQL query
 docker exec -it weather_postgres psql -U postgres -d weather_db -c "SELECT COUNT(*) FROM weather_data.historical_weather;"
 
-# Экспорт данных
+# Export data
 docker exec -t weather_postgres psql -U postgres -d weather_db -c "COPY weather_data.historical_weather TO STDOUT WITH CSV HEADER" > data.csv
 
-# Импорт данных
+# Import data
 cat data.csv | docker exec -i weather_postgres psql -U postgres -d weather_db -c "COPY weather_data.historical_weather FROM STDIN CSV HEADER"
+
 
 ```
 #### Airflow CLI
 ```bash
-# Управление DAG
+# DAG management
 docker exec airflow_webserver airflow dags list
 docker exec airflow_webserver airflow dags trigger weather_etl_complete
 docker exec airflow_webserver airflow dags pause weather_etl_complete
 docker exec airflow_webserver airflow dags unpause weather_etl_complete
 
-# Управление задачами
+# Task management
 docker exec airflow_webserver airflow tasks list weather_etl_complete
 docker exec airflow_webserver airflow tasks test weather_etl_complete forecast_load 2024-01-01
 
-# Информация
+# Info
 docker exec airflow_webserver airflow info
 docker exec airflow_webserver airflow version
+
 
 ```
 #### Makefile
 ```bash
-# Makefile для автоматизации
+# Makefile for automation
 .PHONY: help build up down logs clean test
 
 help:
-	@echo "Доступные команды:"
-	@echo "  make build    - Собрать Docker образы"
-	@echo "  make up       - Запустить все сервисы"
-	@echo "  make down     - Остановить все сервисы"
-	@echo "  make logs     - Показать логи"
-	@echo "  make clean    - Очистить все данные"
-	@echo "  make test     - Запустить тесты"
+	@echo "Available commands:"
+	@echo "  make build    - Build Docker images"
+	@echo "  make up       - Start all services"
+	@echo "  make down     - Stop all services"
+	@echo "  make logs     - Show logs"
+	@echo "  make clean    - Clean all data"
+	@echo "  make test     - Run tests"
 
 build:
 	docker-compose build
@@ -1137,7 +1143,7 @@ build:
 up:
 	docker-compose up -d
 	@echo "✅ Airflow: http://localhost:8080"
-	@echo "✅ Логин: admin, Пароль: admin123"
+	@echo "✅ Login: admin, Password: admin123"
 
 down:
 	docker-compose down
@@ -1153,8 +1159,8 @@ test:
 	docker exec airflow_webserver python /opt/airflow/scripts/forecast_weather_loader.py
 ```
 ## 📈 
-### Дополнительные возможности
-### Оповещения в Telegram
+### Additional Features
+### Telegram Alerts
 ```bash
 # plugins/telegram_alert.py
 import requests
@@ -1176,7 +1182,7 @@ def send_telegram_alert(message):
         return False
 
 ```
-### PowerBI интеграция
+### PowerBI Integration
 ```bash
 # scripts/export_to_powerbi.py
 import pandas as pd
@@ -1199,10 +1205,11 @@ def export_for_powerbi():
     df.to_csv('weather_data_powerbi.csv', index=False)
     return df
 ```
-### Очистка старых данных
+### Cleaning Old Dataх
 ```bash
 
--- Автоматическая очистка (запускать в DAG)
+
+-- Automatic cleanup (run in DAG)
 CREATE OR REPLACE FUNCTION cleanup_old_data()
 RETURNS void AS $$
 BEGIN
@@ -1211,11 +1218,11 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Запуск
+-- Run
 SELECT cleanup_old_data();
 ```
 ### 📄 
-### Лицензия
+### License
 ```bash
 MIT License
 
@@ -1241,28 +1248,28 @@ SOFTWARE.
 ```
 
 ### 🤝 
-### Вклад в проект
+### Contributing
 
-    *  Fork репозитория
+* Fork the repository
 
-    *  Создайте ветку для ваших изменений
+* Create a branch for your changes
 
-    *  Внесите изменения
+* Make your changes
 
-    *  Создайте Pull Request
+* Create a Pull Request
 
-### Руководство по стилю кода
+### Code Style Guide
 
-    *  Следуйте PEP 8
+* Follow PEP 8
 
-    *  Используйте type hints
+* Use type hints
 
-    *  Добавляйте docstrings
+* Add docstrings
 
-   *   Пишите тесты для нового функционала
+* Write tests for new functionality
 
 ## 📞 
-### Контакты
+### Contacts
 *  Contact Sergey Chekryzhov
 *  Email sergeyh510@gmail.com
 *  GitHub sergeyh510-alt
