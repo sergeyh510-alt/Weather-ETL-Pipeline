@@ -106,7 +106,8 @@ Weather ETL Pipeline — это полностью автоматизирова�
 ## 🏗️ 
 ### Архитектура
 ### Диаграмма системы  
-<img width="1729" height="706" alt="image" src="https://github.com/user-attachments/assets/dc0725b2-ee6b-4475-a2d7-df37dbae038b" />
+<img width="1357" height="893" alt="image" src="https://github.com/user-attachments/assets/5a989c54-06a5-47d0-9cb4-927002e3765f" />
+
      
 ## Поток данных
 
