@@ -99,7 +99,8 @@ Weather ETL Pipeline — это полностью автоматизирова�
 
 * 🌱 Почвенные параметры (температура и влажность на разных глубинах)
 
-  ## 🏗️ Архитектура
+## 🏗️ 
+### Архитектура
 ### Диаграмма системы  
 <img width="1729" height="706" alt="image" src="https://github.com/user-attachments/assets/dc0725b2-ee6b-4475-a2d7-df37dbae038b" />
      
