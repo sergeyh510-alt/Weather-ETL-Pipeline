@@ -95,11 +95,13 @@ The system is built on Apache Airflow and runs in Docker containers, providing i
 ## 🏗️ 
 ### Architecture
 ### System Diagram 
-<img width="1729" height="706" alt="image" src="https://github.com/user-attachments/assets/dc0725b2-ee6b-4475-a2d7-df37dbae038b" />
+<img width="1357" height="893" alt="image" src="https://github.com/user-attachments/assets/4323d2e3-1ae0-446f-83e3-ee16e4b74419" />
+
      
 ## Data Flow
 
-<img width="1206" height="899" alt="image" src="https://github.com/user-attachments/assets/03e5bf87-e06c-493e-b9e4-05b5c25b6e52" />
+<img width="937" height="897" alt="image" src="https://github.com/user-attachments/assets/23fd91bb-8804-4355-9e15-0eb7ddb05ed9" />
+
 
 ## 📋 
 ### Prerequisites
