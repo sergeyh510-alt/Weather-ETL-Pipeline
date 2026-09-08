@@ -1,4 +1,3 @@
-
 <div align="center">
 
 # ⚡ Weather ETL Pipeline with Apache Airflow
