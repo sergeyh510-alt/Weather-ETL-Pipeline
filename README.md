@@ -14,9 +14,13 @@
 
 <br><br>
 
+---
+
 ![version](https://img.shields.io/badge/version-1.0.0-blue)
 ![license](https://img.shields.io/badge/license-MIT-green)
 ![status](https://img.shields.io/badge/status-active-brightgreen)
+
+---
 
 </div>
 
