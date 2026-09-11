@@ -247,7 +247,7 @@ cd Mteo_Weather_AirFlow
 
 Создайте .env файл
 cat > .env << EOF
-FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
+FERNET_KEY=<.....................................>
 WEBSERVER_SECRET_KEY=your_super_secret_key_change_me
 AIRFLOW_UID=50000
 AIRFLOW_GID=50000
@@ -423,8 +423,8 @@ services:
     container_name: weather_postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345
-      POSTGRES_DB: weather_db
+      POSTGRES_PASSWORD: <.........>
+      POSTGRES_DB: <...db>
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "5434:5432"  # Используем свободный порт 5434
@@ -480,7 +480,7 @@ services:
     environment:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@airflow_postgres:5432/airflow
-      - AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY:-46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=}
+      - AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY:<.........................>}
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
       - AIRFLOW__WEBSERVER__RBAC=True
       - AIRFLOW__WEBSERVER__SECRET_KEY=${WEBSERVER_SECRET_KEY:-your_super_secret_key}
@@ -507,7 +507,7 @@ services:
         airflow db init &&
         airflow users create \
           --username admin \
-          --password admin123 \
+          --password <............> \
           --firstname Admin \
           --lastname User \
           --role Admin \
@@ -575,7 +575,7 @@ curl http://localhost:8080/health
 
  4. Открытие Airflow UI
  Откройте браузер: http://localhost:8080
- Логин: admin, Пароль: admin123
+ Логин: admin, Пароль: <...............>
 ```
 
 ## 📊 
@@ -701,7 +701,7 @@ def get_table_stats():
 
   *  Откройте http://localhost:8080
 
-  *  Логин: admin / admin123
+  *  Логин: admin / <.............>
 
   *  Найдите DAG weather_etl_complete
 
