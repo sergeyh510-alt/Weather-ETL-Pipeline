@@ -441,7 +441,7 @@ services:
     container_name: airflow_postgres
     environment:
       POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
+      POSTGRES_PASSWORD: ............
       POSTGRES_DB: airflow
     ports:
       - "5435:5432"  # Use free port 5435
@@ -503,7 +503,7 @@ services:
         airflow db init &&
         airflow users create \
           --username admin \
-          --password admin123 \
+          --password <................> \
           --firstname Admin \
           --lastname User \
           --role Admin \
@@ -699,7 +699,7 @@ def get_table_stats():
 
 * Open http://localhost:8080
 
-* Login: admin / pass
+* Login: admin / <............>
 
 * Find DAG weather_etl_complete
 
