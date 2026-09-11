@@ -476,7 +476,7 @@ services:
     environment:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@airflow_postgres:5432/airflow
-      - AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY:<................>}
+      - AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY:-<your_fernet_key>}
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
       - AIRFLOW__WEBSERVER__RBAC=True
       - AIRFLOW__WEBSERVER__SECRET_KEY=${WEBSERVER_SECRET_KEY:-your_super_secret_key}
