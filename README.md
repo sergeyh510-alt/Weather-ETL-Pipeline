@@ -572,7 +572,7 @@ curl http://localhost:8080/health
 
  4. Open Airflow UI
  Open browser: http://localhost:8080
- Login: admin, Password: admin123
+ Login: admin, Password: <............>
 ```
 
 ## 📊 
