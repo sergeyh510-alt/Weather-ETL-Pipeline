@@ -419,8 +419,8 @@ services:
     container_name: weather_postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345
-      POSTGRES_DB: weather_db
+      POSTGRES_PASSWORD: <..........>
+      POSTGRES_DB: <........db?>
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "5434:5432"  # Use free port 5434
@@ -476,7 +476,7 @@ services:
     environment:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@airflow_postgres:5432/airflow
-      - AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY:-46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=}
+      - AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY:<................>}
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
       - AIRFLOW__WEBSERVER__RBAC=True
       - AIRFLOW__WEBSERVER__SECRET_KEY=${WEBSERVER_SECRET_KEY:-your_super_secret_key}
@@ -699,7 +699,7 @@ def get_table_stats():
 
 * Open http://localhost:8080
 
-* Login: admin / admin123
+* Login: admin / pass
 
 * Find DAG weather_etl_complete
 
