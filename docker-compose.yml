@@ -4,8 +4,8 @@ services:
     container_name: weather_postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345
-      POSTGRES_DB: weather_db
+      POSTGRES_PASSWORD: <........>
+      POSTGRES_DB: <..db..>
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "5434:5432"  # Используем свободный порт 5434
@@ -13,7 +13,7 @@ services:
       - weather_postgres_data:/var/lib/postgresql/data
       - ./init-scripts:/docker-entrypoint-initdb.d
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d weather_db"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d db"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -61,7 +61,7 @@ services:
     environment:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@airflow_postgres:5432/airflow
-      - AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY:-46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=}
+      - AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY:<.....pass...............>}
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
       - AIRFLOW__WEBSERVER__RBAC=True
       - AIRFLOW__WEBSERVER__SECRET_KEY=${WEBSERVER_SECRET_KEY:-your_super_secret_key}
@@ -88,7 +88,7 @@ services:
         airflow db init &&
         airflow users create \
           --username admin \
-          --password admin123 \
+          --password <......> \
           --firstname Admin \
           --lastname User \
           --role Admin \
