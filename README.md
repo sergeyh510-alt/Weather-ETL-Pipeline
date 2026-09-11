@@ -241,7 +241,7 @@ cd Mteo_Weather_AirFlow
 
 Create .env file
 cat > .env << EOF
-FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
+FERNET_KEY=<....................>
 WEBSERVER_SECRET_KEY=your_super_secret_key_change_me
 AIRFLOW_UID=50000
 AIRFLOW_GID=50000
