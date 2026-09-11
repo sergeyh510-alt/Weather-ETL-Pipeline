@@ -1144,7 +1144,7 @@ build:
 up:
 	docker-compose up -d
 	@echo "✅ Airflow: http://localhost:8080"
-	@echo "✅ Login: admin, Password: admin123"
+	@echo "✅ Login: admin, Password: <..............>"
 
 down:
 	docker-compose down
